@@ -2,6 +2,7 @@
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
+* [Author](#author)
 
 ## General info
 An application that simulates the process of shopping.
@@ -24,4 +25,7 @@ Project is created with:
 * Java 8
 * SQLite
 * Lombok
-* InttelijIDEA
+* IntellijIDEA
+
+## Author
+Paweł Długołęcki
