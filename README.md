@@ -25,7 +25,6 @@ Project is created with:
 * Java 8
 * SQLite
 * Lombok
-* IntellijIDEA
 
 ## Author
 Paweł Długołęcki
