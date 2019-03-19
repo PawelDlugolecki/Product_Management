@@ -8,7 +8,6 @@ import java.util.Scanner;
 public class MyMenu {
     private Scanner scanner = new Scanner(System.in);
     private ServiceApp serviceApp = new ServiceApp();
-    private Statistics statistics = new Statistics();
     private UserDataService dataService = new UserDataService();
 
 
@@ -49,9 +48,8 @@ public class MyMenu {
                 case 6:
                     orderTabOperations(mainOperations());
                     break;
-             /*   case 7:
-                    statistics();
-                break;*/
+                case 7:
+                    break;
                 case 8:
                     InitializeData.initializeData("data.txt");
                 case 9:
@@ -245,46 +243,6 @@ public class MyMenu {
             default:
                 System.out.println("There is not operation with number: " + option);
         }
-
-
-   /* private void statistics() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Choose statistics:");
-        System.out.println("1. SHOW THE MOST POPULAR CATEGORY");
-        System.out.println("2. SHOW THW MOST POPULAR COUNTRY");
-        System.out.println("3. SHOW THE MOST POPULAR CUSTOMER");
-        System.out.println("4. SHOW THE MOST POPULAR PRODUCER");
-        System.out.println("5. SHOW THE MOST POPULAR PRODUCT");
-        System.out.println("6. SORT PRODUCERS BY AMOUNT SPENT ON PRODUCTS");
-        System.out.println("7. SORT PRODUCERS WITH AVERAGE PRICE");
-        System.out.println("8. SORT CATEGORIES WITH ORDERS");
-        System.out.println("9. FIND THE MOST EXPENSIVE PRODUCT");
-        switch (Integer.parseInt(sc.nextLine())) {
-            case 1:
-                System.out.println(statistics.mostPopularCategory());
-                break;
-            case 2:
-                System.out.println(statistics.mostPopularCountry());
-                break;
-            case 3:
-                System.out.println(statistics.mostPopularCustomer());
-                break;
-            case 4:
-                System.out.println(statistics.mostPopularProducer());
-                break;
-            case 5:
-                System.out.println(statistics.mostPopularProduct());
-                break;
-            case 6:
-                System.out.println(statistics.sortProducersByAmountSpentOnProducts());
-                break;
-            case 7:
-                System.out.println(statistics.producersWithAveragePrice());
-                break;
-            case 8:
-                System.out.println(statistics.sortedCategoriesWithOrders());
-                break;
-        }
-    }*/
     }
 }
+
