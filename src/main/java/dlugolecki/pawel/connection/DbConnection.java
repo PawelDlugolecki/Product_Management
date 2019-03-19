@@ -1,13 +1,16 @@
 package dlugolecki.pawel.connection;
-import dlugolecki.pawel.exception.MyException;
+
+import dlugolecki.pawel.exceptions.ExceptionCode;
+import dlugolecki.pawel.exceptions.MyException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDateTime;
 
 public class DbConnection {
     private static DbConnection ourInstance = new DbConnection();
+
     public static DbConnection getInstance() {
         return ourInstance;
     }
@@ -21,14 +24,16 @@ public class DbConnection {
     }
 
     private DbConnection() {
+
+
         try {
             Class.forName(DRIVER);
             connection = DriverManager.getConnection(DB_NAME);
             createTables();
         } catch (ClassNotFoundException e) {
-            throw new MyException("DbConnection - ERROR DURING LOADING DB DRIVERS", LocalDateTime.now());
+            throw new MyException(ExceptionCode.CONNECTION, "DbConnection");
         } catch (SQLException e) {
-            throw new MyException("DbConnection - ERROR DURING LOADING DB DRIVERS", LocalDateTime.now());
+            throw new MyException(ExceptionCode.CONNECTION, "Error during loading db drivers");
         }
     }
 
@@ -100,7 +105,7 @@ public class DbConnection {
             statement.close();
 
         } catch (SQLException e) {
-            throw new MyException("DbConnection - ERROR DURING CLOSING THE DB CONNECTION", LocalDateTime.now());
+            throw new MyException(ExceptionCode.CONNECTION, "Error during loading db drivers");
         }
     }
 
@@ -109,7 +114,7 @@ public class DbConnection {
             try {
                 connection.close();
             } catch (SQLException e) {
-                throw new MyException("DbConnection - ERROR DURING CLOSING THE DB CONNECTION", LocalDateTime.now());
+                throw new MyException(ExceptionCode.CONNECTION, "Error during loading db drivers");
             }
         }
     }

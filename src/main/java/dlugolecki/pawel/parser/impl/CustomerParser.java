@@ -1,12 +1,11 @@
 package dlugolecki.pawel.parser.impl;
-import dlugolecki.pawel.exception.MyException;
+import dlugolecki.pawel.exceptions.ExceptionCode;
+import dlugolecki.pawel.exceptions.MyException;
 import dlugolecki.pawel.model.Country;
 import dlugolecki.pawel.model.Customer;
 import dlugolecki.pawel.parser.Parser;
 import dlugolecki.pawel.repository.impl.CountryRepositoryImpl;
 import dlugolecki.pawel.repository.repos.CountryRepository;
-
-import java.time.LocalDateTime;
 import java.util.Arrays;
 
 public class CustomerParser implements Parser<Customer> {
@@ -30,8 +29,8 @@ public class CustomerParser implements Parser<Customer> {
                         .build();
             }
             return null;
-        } catch (Exception e) {
-            throw new MyException("INITIALIZE DATA/CUSTOMER/PARSE - EXCEPTION", LocalDateTime.now());
+        } catch (MyException e) {
+            throw new MyException(ExceptionCode.VALIDATION, "Customer parser: " + text);
         }
     }
 }

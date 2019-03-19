@@ -1,68 +1,76 @@
 package dlugolecki.pawel.service;
+
+import dlugolecki.pawel.exceptions.MyException;
 import dlugolecki.pawel.parser.impl.InitializeData;
-import dlugolecki.pawel.service.serviceImpl.*;
+
 import java.util.Scanner;
 
 public class MyMenu {
     private Scanner scanner = new Scanner(System.in);
-    private ProductImpl productImpl = new ProductImpl();
-    private CategoryImpl categoryImpl = new CategoryImpl();
-    private CountryImpl countryImpl = new CountryImpl();
-    private CustomerImpl customerImpl = new CustomerImpl();
-    private ProducerImpl producerImpl = new ProducerImpl();
-    private OrderImpl orderImpl = new OrderImpl();
+    private ServiceApp serviceApp = new ServiceApp();
     private Statistics statistics = new Statistics();
+    private UserDataService dataService = new UserDataService();
 
 
-    public boolean mainMenu() {
-        return chooseOptionFromMainMenu();
+    public void mainMenu() {
+        chooseOptionFromMainMenu();
     }
 
-    private boolean chooseOptionFromMainMenu() {
-        System.out.println("CHOOSE TABLE:");
-        System.out.println("1. CATEGORY");
-        System.out.println("2. COUNTRY");
-        System.out.println("3. CUSTOMER");
-        System.out.println("4. PRODUCER");
-        System.out.println("5. PRODUCT");
-        System.out.println("6. ORDER");
-        System.out.println("7. STATISTICS");
-        System.out.println("8. INITIALIZE DATA");
-        System.out.println("9. EXIT");
-        int option = scanner.nextInt();
-        boolean isFinished = true;
-        switch (option) {
-            case 1:
-                categoryOperations(mainOperations());
-                break;
-            case 2:
-                countryOperations(mainOperations());
-                break;
-            case 3:
-                custumerOperations(mainOperations());
-                break;
-            case 4:
-                producerOperations(mainOperations());
-                break;
-            case 5:
-                productOperations(mainOperations());
-                break;
-            case 6:
-                orderTabOperations(mainOperations());
-                break;
-            case 7:
-                statistics();
-                break;
-            case 8:
-                InitializeData.initializeData("data.txt");
-            case 9:
-                System.out.println("END OF APPLICATION");
-                isFinished = false;
-                break;
-            default:
+    private void chooseOptionFromMainMenu() {
+        try {
+            System.out.println("CHOOSE TABLE:");
+            System.out.println("1. Category");
+            System.out.println("2. Country");
+            System.out.println("3. Customer");
+            System.out.println("4. Producer");
+            System.out.println("5. Product");
+            System.out.println("6. Order");
+            System.out.println("7. Statistics");
+            System.out.println("8. Initialize Data");
+            System.out.println("9. EXIT");
+            int option = scanner.nextInt();
+            boolean isFinished = true;
+            switch (option) {
+                case 1:
+                    categoryOperations(mainOperations());
+                    break;
+                case 2:
+                    countryOperations(mainOperations());
+                    break;
+                case 3:
+                    customerOperations(mainOperations());
+                    break;
+                case 4:
+                    producerOperations(mainOperations());
+                    break;
+                case 5:
+                    productOperations(mainOperations());
+                    break;
+                case 6:
+                    orderTabOperations(mainOperations());
+                    break;
+             /*   case 7:
+                    statistics();
+                break;*/
+                case 8:
+                    InitializeData.initializeData("data.txt");
+                case 9:
+                    System.out.println("END OF APPLICATION");
+                    isFinished = false;
+                    /*break;*/
+                default:
+            }
+            isFinished = true;
+
+        } catch (MyException e) {
+            System.out.println("\n****************************** EXCEPTIONS *************************************");
+            System.out.println(e.getExceptionInfo().getMessage());
+            System.out.println(e.getExceptionInfo().getExceptionCode());
+            System.out.println(e.getExceptionInfo().getTimeOfException());
+            System.out.println("*******************************************************************************\n");
         }
-        return isFinished;
     }
+
 
     private int mainOperations() {
         System.out.println("CHOOSE OPERATION:");
@@ -78,23 +86,30 @@ public class MyMenu {
     private void categoryOperations(int option) {
         switch (option) {
             case 1:
-                categoryImpl.addCategory();
+                serviceApp.addCategory(
+                        dataService.getString("Enter category name"));
                 break;
             case 2:
-                categoryImpl.findAllCategory();
-                categoryImpl.updateCategory();
+                serviceApp.findAllCategory();
+                serviceApp.updateCategory(
+                        dataService.getString("Enter category name"),
+                        dataService.getString("Enter new category name"));
                 break;
             case 3:
-                categoryImpl.findAllCategory();
-                categoryImpl.deleteOneCategory();
+                serviceApp.findAllCategory();
+                serviceApp.deleteOneCategory(
+                        dataService.getInt("Enter category id")
+                );
                 break;
             case 4:
-                categoryImpl.deleteAllCategory();
+                serviceApp.deleteAllCategory();
             case 5:
-                categoryImpl.findOneCategory();
+                serviceApp.findOneCategory(
+                        dataService.getInt("Enter category id")
+                );
                 break;
             case 6:
-                categoryImpl.findAllCategory();
+                serviceApp.findAllCategory();
                 break;
             default:
                 System.out.println("There is not operation with number: " + option);
@@ -104,72 +119,78 @@ public class MyMenu {
     private void countryOperations(int option) {
         switch (option) {
             case 1:
-                countryImpl.addCountry();
+                serviceApp.addCountry(
+                        dataService.getString("Enter country name"));
                 break;
             case 2:
-                countryImpl.updateCountry();
+                serviceApp.updateCountry(
+                        dataService.getString("Enter country name"),
+                        dataService.getString("Enter country new name"));
                 break;
             case 3:
-                countryImpl.findAllCountry();
-                countryImpl.deleteOneCountry();
+                serviceApp.findAllCountry();
+                serviceApp.deleteOneCountry(
+                        dataService.getInt("Enter country id")
+                );
                 break;
             case 4:
-                countryImpl.deleteAllCountry();
+                serviceApp.deleteAllCountry();
             case 5:
-                countryImpl.findAllCountry();
-                countryImpl.findOneCountry();
+                serviceApp.findAllCountry();
+                serviceApp.findOneCountry(
+                        dataService.getInt("Enter country id"));
                 break;
             case 6:
-                countryImpl.findAllCountry();
+                serviceApp.findAllCountry();
                 break;
             default:
                 System.out.println("There is not operation with number: " + option);
         }
     }
 
-    private void custumerOperations(int option) {
+    private void customerOperations(int option) {
         switch (option) {
             case 1:
-                customerImpl.addCustomer();
+                serviceApp.addCustomer();
                 break;
             case 2:
-                customerImpl.updateCustomer();
+                serviceApp.updateCustomer();
                 break;
             case 3:
-                customerImpl.findAllCustomer();
-                customerImpl.deleteOneCustomer();
+                serviceApp.deleteOneCustomer();
                 break;
             case 4:
-                customerImpl.deleteAllCustomer();
+                serviceApp.deleteAllCustomer();
             case 5:
-                customerImpl.findOneCustomer();
+                serviceApp.findOneCustomer();
                 break;
             case 6:
-                customerImpl.findAllCustomer();
+                serviceApp.findAllCustomer();
                 break;
             default:
                 System.out.println("There is not operation with number: " + option);
         }
     }
+
     private void orderTabOperations(int option) {
         switch (option) {
             case 1:
-                orderImpl.addOrder();
+                serviceApp.addOrder();
                 break;
             case 2:
-                orderImpl.updateOrder();
+                serviceApp.updateOrder();
                 break;
             case 3:
-                orderImpl.findAllOrder();
-                orderImpl.deleteOneOrder();
+                serviceApp.findAllOrder();
+                serviceApp.deleteOneOrder();
                 break;
             case 4:
-                orderImpl.deleteAllOrder();
+                serviceApp.deleteAllOrder();
             case 5:
-                orderImpl.findOneOrder();
+                serviceApp.findOneOrder();
                 break;
             case 6:
-                orderImpl.findAllOrder();
+                serviceApp.findAllOrder();
                 break;
             default:
                 System.out.println("There is not operation with number: " + option);
@@ -179,23 +200,23 @@ public class MyMenu {
     private void producerOperations(int option) {
         switch (option) {
             case 1:
-                producerImpl.addProducer();
+                serviceApp.addProducer();
                 break;
             case 2:
-                producerImpl.updateProducer();
+                serviceApp.updateProducer();
                 break;
             case 3:
-                producerImpl.findAllProducer();
-                producerImpl.deleteOneProducer();
+                serviceApp.findAllProducer();
+                serviceApp.deleteOneProducer();
                 break;
             case 4:
-                producerImpl.deleteAllProducer();
+                serviceApp.deleteAllProducer();
             case 5:
-                producerImpl.findAllProducer();
-                producerImpl.findOneProducer();
+                serviceApp.findAllProducer();
+                serviceApp.findOneProducer();
                 break;
             case 6:
-                producerImpl.findAllProducer();
+                serviceApp.findAllProducer();
                 break;
         }
     }
@@ -203,30 +224,30 @@ public class MyMenu {
     private void productOperations(int option) {
         switch (option) {
             case 1:
-                productImpl.addProduct();
+                serviceApp.addProduct();
                 break;
             case 2:
-                productImpl.updateProduct();
+                serviceApp.updateProduct();
                 break;
             case 3:
-                productImpl.findAllProduct();
-                productImpl.deleteOneProduct();
+                serviceApp.findAllProduct();
+                serviceApp.deleteOneProduct();
                 break;
             case 4:
-                productImpl.deleteAllProduct();
+                serviceApp.deleteAllProduct();
             case 5:
-                productImpl.findAllProduct();
-                productImpl.findOneProduct();
+                serviceApp.findAllProduct();
+                serviceApp.findOneProduct();
                 break;
             case 6:
-                productImpl.findAllProduct();
+                serviceApp.findAllProduct();
                 break;
             default:
                 System.out.println("There is not operation with number: " + option);
         }
-    }
 
-    private void statistics() {
+
+   /* private void statistics() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Choose statistics:");
         System.out.println("1. SHOW THE MOST POPULAR CATEGORY");
@@ -264,5 +285,6 @@ public class MyMenu {
                 System.out.println(statistics.sortedCategoriesWithOrders());
                 break;
         }
+    }*/
     }
 }

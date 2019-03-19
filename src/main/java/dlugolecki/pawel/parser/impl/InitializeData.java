@@ -1,5 +1,6 @@
 package dlugolecki.pawel.parser.impl;
-import dlugolecki.pawel.exception.MyException;
+import dlugolecki.pawel.exceptions.ExceptionCode;
+import dlugolecki.pawel.exceptions.MyException;
 import dlugolecki.pawel.parser.Parser;
 import dlugolecki.pawel.repository.crud.CrudRepository;
 import dlugolecki.pawel.repository.impl.*;
@@ -42,7 +43,7 @@ public class InitializeData {
             e.printStackTrace();
             throw new NullPointerException("INITIALIZE DATA/INITIALIZE DATA");
         } catch (IOException e) {
-            throw new MyException("INITIALIZE DATA-INITIALIZE DATA", LocalDateTime.now());
+            throw new MyException(ExceptionCode.INPUT_DATA, "Initialize data: " + filename);
         }
     }
 
@@ -53,7 +54,7 @@ public class InitializeData {
                     .map(line -> parser.parse(line))
                     .collect(Collectors.toList());
         } catch (Exception e) {
-            throw new MyException("INITIALIZE DATA/GET ITEMS FROM FILE - EXCEPTION", LocalDateTime.now());
+            throw new MyException(ExceptionCode.VALIDATION, "Get items from file: " + filename);
         }
     }
 

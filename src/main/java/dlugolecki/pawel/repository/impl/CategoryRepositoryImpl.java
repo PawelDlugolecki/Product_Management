@@ -1,8 +1,10 @@
 package dlugolecki.pawel.repository.impl;
+
 import dlugolecki.pawel.connection.DBTables;
 import dlugolecki.pawel.connection.DbConnection;
 import dlugolecki.pawel.model.Category;
 import dlugolecki.pawel.repository.repos.CategoryRepository;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

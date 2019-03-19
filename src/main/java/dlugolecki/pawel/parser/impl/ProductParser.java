@@ -1,5 +1,6 @@
 package dlugolecki.pawel.parser.impl;
-import dlugolecki.pawel.exception.MyException;
+import dlugolecki.pawel.exceptions.ExceptionCode;
+import dlugolecki.pawel.exceptions.MyException;
 import dlugolecki.pawel.model.Category;
 import dlugolecki.pawel.model.Country;
 import dlugolecki.pawel.model.Producer;
@@ -12,7 +13,6 @@ import dlugolecki.pawel.repository.repos.CategoryRepository;
 import dlugolecki.pawel.repository.repos.CountryRepository;
 import dlugolecki.pawel.repository.repos.ProducerRepository;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 
 public class ProductParser implements Parser<Product> {
@@ -44,8 +44,8 @@ public class ProductParser implements Parser<Product> {
                         .build();
             }
             return null;
-        } catch (Exception e) {
-            throw new MyException("INITIALIZE DATA/PRODUCT/PARSE - EXCEPTION", LocalDateTime.now());
+        } catch (MyException e) {
+            throw new MyException(ExceptionCode.VALIDATION, "Product parser: " + text);
         }
     }
 }

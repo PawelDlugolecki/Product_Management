@@ -1,5 +1,7 @@
 package dlugolecki.pawel.parser.impl;
-import dlugolecki.pawel.exception.MyException;
+
+import dlugolecki.pawel.exceptions.ExceptionCode;
+import dlugolecki.pawel.exceptions.MyException;
 import dlugolecki.pawel.model.*;
 import dlugolecki.pawel.parser.Parser;
 import dlugolecki.pawel.repository.impl.CountryRepositoryImpl;
@@ -10,8 +12,8 @@ import dlugolecki.pawel.repository.repos.CountryRepository;
 import dlugolecki.pawel.repository.repos.CustomerRepository;
 import dlugolecki.pawel.repository.repos.ProducerRepository;
 import dlugolecki.pawel.repository.repos.ProductRepository;
+
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 
 public class OrderParser implements Parser<OrderTab> {
@@ -48,8 +50,8 @@ public class OrderParser implements Parser<OrderTab> {
                         .build();
             }
             return null;
-        } catch (Exception e) {
-            throw new MyException("INITIALIZE DATA/ORDER/PARSE - EXCEPTION", LocalDateTime.now());
+        } catch (MyException e) {
+            throw new MyException(ExceptionCode.VALIDATION, "Order parser: " + text);
         }
     }
 }
