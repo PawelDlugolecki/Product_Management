@@ -1,4 +1,4 @@
-# ShopSimulation
+# Product_Management
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
